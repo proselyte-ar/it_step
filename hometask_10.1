@@ -1,0 +1,113 @@
+// 10.1.cpp : Defines the entry point for the console application.
+//Дан массив чисел размерностью 10 элементов. Написать функцию, которая сортирует массив по возрастанию или по убыванию, в зависимости от третьего параметра функции. 
+//Если он равен 1, сортировка идет по убыванию, если 0, то по возрастанию. Первые 2 параметра функции - это массив и его размер, третий параметр по умолчанию равен 1.
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+template <typename T> void generate_array(T mas[], int size);
+template <typename S> void sel_sort(S mas[], int size, int type_of_sort);
+template <typename R> void show_array(R mas[], int size);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+
+	const int size = 10;
+	int imas[size], type_of_sort;
+	cout << "The initial array is given below: \n\n";
+	
+	generate_array(imas, size);
+
+	cout << "Enter the type of sorting. \n\n";
+	cout << "0 - up;\n\n1 - down.\n\n";
+
+	cin >> type_of_sort;
+	
+	cout << "\n\n";
+
+	sel_sort(imas, size, type_of_sort);
+	show_array(imas, size);
+
+	cout << "\n\nThe same array after sorting: \n\n";
+	cout << "Thank You. Good Bye.\n\n";
+
+
+	return 0;
+}
+
+template <typename T> void generate_array(T mas[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		mas[i] = rand()%30;
+		cout << mas[i] << " ";
+	}
+	cout << "\n\n";
+}
+
+template <typename S> void sel_sort(S mas[], int size, int type_of_sort)
+{
+	if (type_of_sort == 1)  //Down sort
+	{
+		S max_element;
+		int max_index;
+
+		for (int i = 0; i < size; i++)
+		{
+			max_element = mas[i];
+			max_index = i;
+			for (int j = i + 1; j < size; j++)
+			{
+				if (mas[j] > max_element)
+				{
+					max_element = mas[j];
+					max_index = j;
+				}
+			}
+			mas[max_index] = mas[i];
+			mas[i] = max_element;
+		}
+	}
+
+	/*====================================*/
+
+	if (type_of_sort == 0) //Up sort
+	{
+		S min_element;
+		int min_index;
+
+		for (int i = 0; i < size; i++)
+		{
+			min_element = mas[i];
+			min_index = i;
+			for (int j = i + 1; j < size; j++)
+			{
+				if (mas[j] < min_element)
+				{
+					min_element = mas[j];
+					min_index = j;
+				}
+			}
+			mas[min_index] = mas[i];
+			mas[i] = min_element;
+		}
+	}
+
+	if (type_of_sort!=0 && type_of_sort!=1)
+	{
+		cout << "Incorrect input!!!\n\n";
+	}
+}
+
+template <typename R> void show_array(R mas[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << mas[i] << " ";
+	}
+	cout << "\n\n";
+}
