@@ -1,0 +1,38 @@
+// 9.3.cpp : Defines the entry point for the console application.
+//Написать функцию, которая принимает в качестве параметров вещественное число и количество знаков после десятичной точки, которые должны остаться. 
+//Задачей функции является округление вышеуказанного вещественного числа с заданной точностью. 
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+template <typename T> T precise_number(T number, int accuracy);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	double number;
+	int accuracy;
+	cout << "Enter the number: ";
+	cin >> number;
+	cout << "\n\nEnter the accuracy of precision: ";
+	cin >> accuracy;
+	cout << "\n\n";
+
+	precise_number(number, accuracy);
+
+	cout << "Thank You. Good Bye.\n\n";
+
+
+
+	return 0;
+}
+
+template <typename T> T precise_number(T number, int accuracy)
+{
+	cout.precision(accuracy);
+	cout << "Precised number is " << number << ".\n\n";
+
+	return 0;
+}
+
