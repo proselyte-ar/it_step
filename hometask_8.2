@@ -1,0 +1,141 @@
+// 8.2.cpp : Defines the entry point for the console application.
+//Игра «кубики». Условие: имеется два игральных кубика со значениями от 1 до 6. Игра происходит с компьютером, кубики бросаются поочередно. 
+//Побеждает тот, у кого сумма выпавших очков по итогам пяти бросков больше. 
+//Предусмотрите возможность получения первого хода человеком или компьютером. 
+//Кубики отображаются с помощью символов. В конце игры необходимо выводить среднюю сумму по броскам для обоих участников. 
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+
+using namespace std;
+
+void throw_cubes(int cube_1, int cube_2);
+void show_cube(int cube, int sum);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+	int hum_sum, cpu_sum, cube_1, cube_2, push;
+	
+	cube_1 = 0;
+	cube_2 = 0;
+	hum_sum = 0;
+	cpu_sum = 0;
+	push = 1;
+
+
+	cout << "Let\'s play the game.\n\n";
+	
+	for (int i = 0; i < 6; i++)
+	{
+		cout << "Push 1 - to throw;\n\n";
+		cout << "Push 0 - to exit;\n\n";
+		
+		cin >> push;
+
+		if (push == 0)
+		{
+			cout << "\n\n";
+			break;
+		}
+
+		cout << "\n\n";
+
+		cout << "You: \n\n";
+		
+		cube_1 = rand() % 5 + 1;
+		cube_2 = rand() % 5 + 1;
+
+
+		show_cube(cube_1, hum_sum);
+		show_cube(cube_2, hum_sum);
+
+		hum_sum += (cube_1 + cube_2);
+
+		cout << "Your sum = " << hum_sum << ".\n\n";
+
+		cout << "Computer: \n\n";
+
+		cube_1 = rand() % 5 + 1;
+		cube_2 = rand() % 5 + 1;
+
+		show_cube(cube_1, cpu_sum);
+		show_cube(cube_2, cpu_sum);
+
+		cpu_sum += (cube_1 + cube_2);
+
+		cout << "Computer sum = " << cpu_sum << ".\n\n";
+
+	}
+	cout << "_____________________________________\n\n";
+	cout << "Your score = " << hum_sum << ".\n\n";
+	cout << "Computer score = " << cpu_sum << ".\n\n";
+	cout << "_____________________________________\n\n";
+
+	if (hum_sum > cpu_sum)
+	{
+		cout << "You won!!!\n\n";
+	}
+	if (cpu_sum > hum_sum)
+	{
+		cout << "You lose.\n\n";
+	}
+	if (hum_sum == cpu_sum)
+	{
+		cout << "Friendship!!!\n\n";
+	}
+
+	cout << "_____________________________________\n\n";
+	cout << "Thank You. Good Bye.\n\n";
+
+	return 0;
+}
+
+void throw_cubes(int cube_1, int cube_2)
+{
+	srand(time(NULL));
+	cube_1 = rand() % 5 + 1;
+	cube_2 = rand() % 5 + 1;
+}
+
+void show_cube(int cube, int sum)
+{
+	if (cube == 1)
+	{
+		cout << "1\n\n";
+		sum += 1;
+	}
+
+	if (cube == 2)
+	{
+		cout << "2\n\n";
+		sum += 2;
+	}
+
+	if (cube == 3)
+	{
+		cout << "3\n\n";
+		sum += 3;
+	}
+
+	if (cube == 4)
+	{
+		cout << "4\n\n";
+		sum += 4;
+	}
+
+	if (cube == 5)
+	{
+		cout << "5\n\n";
+		sum += 5;
+	}
+
+	if (cube == 6)
+	{
+		cout << "6\n\n";
+		sum += 6;
+	}
+}
