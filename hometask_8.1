@@ -1,0 +1,61 @@
+// 8.1.cpp : Defines the entry point for the console application.
+//Написать функцию, которая получает в качестве аргументов целое положительное число и систему счисления, в которую это число должно переводится (системы счисления от 2 до 36). 
+//Например, при переводе числа 27 в систему счисления 16 должно получиться 1B; 13 в 5-ю - 23; 35 в 18-ю - 1H. 
+
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+void convert_to_system(int number, int calculation_system);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int number, calculation_system;
+
+	cout << "Enter the integer number: ";
+	cin >> number;
+	cout << "\n\nEnter the calculation system: ";
+	cin >> calculation_system;
+	cout << "\n\n";
+
+	convert_to_system(number, calculation_system);
+
+	cout << "Thank You. Good Bye.\n\n";
+}
+
+void convert_to_system(int number, int calculation_system)
+{
+	int imas[36];
+	int temp, residue, i;
+	
+	i = 0;
+
+	for (; number > 0;)
+	{
+		temp = number;
+		number /= calculation_system;
+		residue = temp - number*calculation_system;
+		imas[i] = residue;
+		i++;
+	}
+
+	i--;
+
+	for (; i >= 0; i--)
+	{
+		int n;
+		if (imas[i] >= 10)
+		{
+			n = imas[i] + 55;
+			cout << char(n);
+		}
+
+		else
+		{
+			cout << imas[i];
+		}
+	}
+	cout << "\n\n";
+}
