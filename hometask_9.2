@@ -1,0 +1,92 @@
+// 9.2.cpp : Defines the entry point for the console application.
+//Написать перегруженные шаблоны функций для нахождения корней линейного (a*x + b = 0) и квадратного (a*x2+b*x + c = 0) уравнений. 
+//Замечание: в функции передаются коэффициенты уравнений. 
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+template <typename T> T line_equation(T a, T b);
+template <typename S> S quadric_equation(S a, S b, S c);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int a, b, c;
+
+	cout << "Line equation: \n\n";
+
+	cout << "a * x + b = 0 \n\n";
+	cout << "Quadric equation: \n\n";
+	cout << "a * x ^ 2 + b * x + c = 0 \n\n";
+
+	cout << "Enter a: ";
+	cin >> a;
+	cout << "\n\nEnter b: ";
+	cin >> b;
+	cout << "Enter c: ";
+	cin >> c;
+	cout << "\n\n";
+
+	cout << "Line equation solution: \n\n";
+	line_equation(a, b);
+	cout << "Quadric equation solution: \n\n";
+	quadric_equation(a, b, c);
+
+
+
+	return 0;
+}
+
+template <typename T> T line_equation(T a, T b)
+{
+	T x;
+	cout << a << " * x + " << b << " = 0\n\n";
+
+	if (a == 0)
+	{
+		cout << "This equation doesn\'t have solution.\n\n";
+	}
+	else
+	{
+		x = -(b) / a;
+		cout << "x = " << x << ".\n\n";
+	}
+
+	return 0;
+}
+
+template <typename S> S quadric_equation(S a, S b, S c)
+{
+	S d;
+	S x_1;
+	d = b*b - 4 * a*c;
+
+	cout << a << " * x*x + " << b << " *x + " << c << " = 0\n\n";
+
+	if (d < 0)
+	{
+		cout << "This equaytion doesn\'t have solution.\n\n";
+	}
+
+	if (d == 0)
+	{
+		x_1 = -b/ 2*a;
+
+		cout << "x = " << x_1 << "\n\n";
+	}
+	if (d>0)
+	{
+		S x_2;
+
+		x_1 = -b + sqrt(d) / (2*a);
+		x_2 = -b - sqrt(d) / (2*a);
+
+		cout << "x1 = " << x_1 << "\n\n";
+		cout << "x2 = " << x_2 << "\n\n";
+	}
+
+	return 0;
+}
