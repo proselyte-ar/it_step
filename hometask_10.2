@@ -1,0 +1,134 @@
+// 10.2.cpp : Defines the entry point for the console application.
+//Дан массив случайных чисел в диапазоне от -20 до +20. Необходимо найти позиции крайних отрицательных элементов 
+//(самого левого отрицательного элемента и самого правого отрицательного элемента) и отсортировать элементы, находящиеся между ними. 
+
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using  namespace std;
+
+template <typename T> void generate_array(T mas[], int size);
+template <typename S> void show_array(S mas[], int size);
+template <typename R> void ext_negative_elements(R mas[], int size, int down_limit, int up_limit);
+template <typename F> void sort_int_range(F mas[], int size, int down_limit, int up_limit);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+	const int size = 10;
+	int imas[size], down_limit, up_limit;
+
+	down_limit = 0; 
+	up_limit = 0;
+
+	cout << "The initial array is given below: \n\n";
+
+	generate_array(imas, size);
+	show_array(imas, size);
+
+	cout << "Let\'s identify minimal and maximal negative elements of the array: \n\n";
+
+	ext_negative_elements(imas, size, down_limit, up_limit);
+
+	cout << "The same array after sorting between minimum and maximum negative elements: \n\n";
+
+
+	show_array(imas, size);
+	
+	
+
+
+
+	return 0;
+}
+
+template <typename T> void generate_array(T mas[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		mas[i] = rand() % 40 - 20;
+	}
+}
+
+template <typename S> void show_array(S mas[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << mas[i] << " ";
+	}
+	cout << "\n\n";
+}
+
+template <typename R> void ext_negative_elements(R mas[], int size, int down_limit, int up_limit)
+{
+	R min_negative, max_negative;
+	int min_negative_index, max_negative_index;
+
+	//Looking for minimum negative element
+	min_negative = mas[0];			
+	min_negative_index = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (mas[i] < 0 && mas[i] < min_negative)
+		{
+			min_negative = mas[i];
+			min_negative_index = i;
+		}
+	}
+
+	//Looking for maximum negative element
+	max_negative = mas[min_negative_index];
+	max_negative_index = 0;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (mas[i]<0 && mas[i] > max_negative)
+		{
+			max_negative = mas[i];
+			max_negative_index = i;
+		}
+	}
+
+		down_limit = min_negative_index;
+		up_limit = max_negative_index;
+
+	if (min_negative_index>max_negative_index)
+	{
+		down_limit = max_negative_index;
+		up_limit = min_negative_index;
+	}
+
+	cout << "Minimum negative element is " << min_negative_index + 1 << " element of the array and it\'s " << min_negative << ".\n\n";
+	cout << "Maximum negative element is " << max_negative_index + 1 << " element of the array and it\'s " << max_negative << ".\n\n";
+
+	sort_int_range(mas, size, down_limit, up_limit);
+
+	
+}
+
+template <typename F> void sort_int_range(F mas[], int size, int down_limit, int up_limit)
+{
+	F min;
+	int min_index;
+
+	for (int i = down_limit; i <= up_limit; i++)
+	{
+		min = mas[i];
+		min_index = i;
+
+		for (int j = i + 1; j <= up_limit; j++)
+		{
+			if (mas[j]<min)
+			{
+				min = mas[j];
+				min_index = j;
+			}
+		}
+		mas[min_index] = mas[i];
+		mas[i] = min;
+	}
+}
