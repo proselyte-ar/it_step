@@ -1,0 +1,155 @@
+// 10.3.cpp : Defines the entry point for the console application.
+//Дан массив из 20 целых чисел со значениями от 1 до 20. 
+
+//Необходимо:
+//
+//написать функцию, разбрасывающую элементы массива произвольным образом;
+//создать случайное число из того же диапазона и найти позицию этого случайного числа в массиве;
+//отсортировать элементы массива, находящиеся слева от найденной позиции по убыванию, а элементы массива, находящиеся справа от найденной позиции по возрастанию.
+
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+void generate_array(int mas[], int size);					//Generatin array
+void show_array(int mas[], int size);						//Showing array
+void random_array(int imas[], int nmas[], int size);		//Generating mixed array
+int random_number(int new_mas[], int size, int number);		//Finding the position of random number in the array
+void sel_sort_left(int mas[], int size, int index);			//Selection sort down to the left from random number
+void sel_sort_right(int mas[], int size, int index);		//Selection sort up to the right from random number
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+
+	const int size = 20;
+	int imas[size], new_mas[size];
+	int rand_number, rand_numb_index;
+
+
+	cout << "the initial arrya is given below: \n\n";
+
+	generate_array(imas, size);
+	show_array(imas, size);
+
+	cout << "Lte\'s mix this array: \n\n";
+
+	random_array(imas, new_mas, size);
+	show_array(new_mas, size);
+
+	rand_number = rand() % 19 + 1;														//Here we generate random number
+	rand_numb_index = random_number(new_mas, size, rand_number);						//Initializing rand_number_index
+	cout << "Now we will generate the random number: "<<rand_number << ".\n\n";
+	cout << "It\'s position in the aray is:  " << rand_numb_index + 1 << ".\n\n";
+
+	sel_sort_left(new_mas, size, rand_numb_index);
+	sel_sort_right(new_mas, size, rand_numb_index);
+
+	cout << "The final array after sorting is given below: \n\n";
+
+	show_array(new_mas, size);
+
+	
+
+	return 0;
+}
+
+void generate_array(int mas[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		mas[i] = rand()%19+1;
+	}
+}
+
+void show_array(int mas[], int size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		cout << mas[i] << " ";
+	}
+	cout << "\n\n";
+}
+
+void random_array(int imas[], int nmas[], int size)
+{
+	const int size1 = size;
+	int x, temp;
+
+	for (int i = 0; i < size; i++)
+	{
+		x = rand() % 19 + 1;
+		nmas[i] = imas[x];
+		
+		if (x == x - 1)
+		{
+			x = rand() % 19 + 1;
+			nmas[i] = imas[x];
+		}
+	}
+}
+
+int random_number(int new_mas[], int size, int number)
+{
+	int index=0;
+
+	for (int i = 0; i < size; i++)
+	{
+		if (new_mas[i] == number)
+		{
+			index = i;
+		}
+	}
+
+	return index;
+}
+
+void sel_sort_left(int mas[], int size, int index)
+{
+	int max, max_index;
+
+	for (int i = 0; i < index; i++)
+	{
+		max = mas[i];
+		max_index = i;
+		
+		for (int j = i+1; j < index; j++)
+		{
+			if (mas[j] > max)
+			{
+				max = mas[j];
+				max_index = j;
+			}
+		}
+
+		mas[max_index] = mas[i];
+		mas[i] = max;
+	}
+}
+
+void sel_sort_right(int mas[], int size, int index)
+{
+	int min, min_index;
+
+	for (int i = index; i < size; i++)
+	{
+		min = mas[i];
+		min_index = i;
+
+		for (int j = i + 1; j < size; j++)
+		{
+			if (mas[j] > min)
+			{
+				min = mas[j];
+				min_index = j;
+			}
+		}
+
+		mas[min_index] = mas[i];
+		mas[i] = min;
+	}
+}
