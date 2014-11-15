@@ -1,0 +1,51 @@
+// 11.1.cpp : Defines the entry point for the console application.
+//Написать функцию, которая рекурсивно вычисляет сумму чисел в заданном диапазоне.
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+template <typename T> T sum_of_the_range(T down_limit, T up_limit);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int down_limit, up_limit, sum;
+
+	cout << "Enter the down limit of the range: ";
+	cin >> down_limit;
+	cout << "\n\nEnter the up limit of the range: ";
+	cin >> up_limit;
+	cout << "\n\n";
+
+	if (down_limit > up_limit)
+	{
+		cout << "Error!!! Down limit must be less than up limit.\n\n";
+	}
+	else
+	{
+		sum = sum_of_the_range(down_limit, up_limit);
+
+		cout << "The of the range from " << down_limit << " to " << up_limit << " is " << sum << ".\n\n";
+	}
+
+	
+}
+
+template <typename T> T sum_of_the_range(T down_limit, T up_limit)
+{
+	int sum;
+
+	sum = down_limit;
+
+	if(down_limit < up_limit)
+	{
+		down_limit++;
+		return sum_of_the_range(down_limit, up_limit)+down_limit;
+	}
+
+	else
+	{
+		return sum;
+	}
+}
