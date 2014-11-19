@@ -1,0 +1,45 @@
+// 13.1.cpp : Defines the entry point for the console application.
+//Через указатели на указатели посчитать сумму двух чисел и записать в третье.
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+
+	//Creating pointers 
+	int *digit_1 = new (int);
+	int *digit_2 = new (int);
+	int *digit_3 = new int (0);
+
+
+	//Creating pointers for pointers
+
+
+	int **pdigit_1 = &digit_1;
+	int **pdigit_2 = &digit_2;
+	int **pdigit_3 = &digit_3;
+
+	*digit_3 = **pdigit_1 + **pdigit_2;
+
+	cout << "Enter digit #1: ";
+	cin >> *digit_1;
+	cout << "\n\nEnter digit #2: ";
+	cin >> *digit_2;
+	cout << "\n\n";
+
+	*digit_3 = **pdigit_1 + **pdigit_2;
+
+	cout << **pdigit_1 << "\n\n";
+	cout << **pdigit_2 << "\n\n";
+	
+	cout << **pdigit_1 << " + " << **pdigit_2 << " = " << **pdigit_3 << "\n\n";
+
+	delete digit_1;
+	delete digit_2;
+	delete digit_3;
+}
+
