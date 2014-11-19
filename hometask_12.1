@@ -1,0 +1,64 @@
+// 12.1.1.cpp : Defines the entry point for the console application.
+//Дан массив целых чисел. Воспользовавшись указателями, поменяйте местами элементы массива с четными и нечетными индексами 
+//(т.е. те элементы массива, которые стоят на четных местах, поменяйте с элементами, которые стоят на нечетных местах). 
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+void generate_array(int mas[], int size);
+void show_array(int *pmas, int size);
+void swap_odd_even(int *pmas, int size);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	const int size = 10;
+	int imas[size];
+	
+	int *pmas = &imas[0];
+
+	cout << "The initial array is given below: \n\n";
+
+	generate_array(pmas, size);
+	show_array(pmas, size);
+	
+
+	cout << "Now we will replace odd elements by even elements: \n\n";
+
+	swap_odd_even(pmas, size);
+	show_array(pmas, size);
+
+	return 0;
+}
+
+void generate_array(int *pmas, int size)
+{
+	for (int i = 0; i < size; i++, pmas++)
+	{
+		*pmas = rand() % 30;
+	}
+}
+
+void show_array(int *pmas, int size)
+{
+	for (int i = 0; i < size; i++, pmas++)
+	{
+		cout << *pmas << " ";
+	}
+	cout << "\n\n";
+}
+
+void swap_odd_even(int *pmas, int size)
+{
+	for (int i = 0; i < size-1; i++, pmas++)
+	{
+		swap(*pmas, *(pmas + 1));
+	}
+}
+
+
+
+
+
