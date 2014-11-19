@@ -1,0 +1,108 @@
+// 12.2.1.cpp : Defines the entry point for the console application.
+//Даны два массива, упорядоченных по возрастанию: А[n] и B[m]. Сформируйте массив C[n+m], состоящий из элементов массивов А и В, упорядоченный по возрастанию. 
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+void generate_array(int *pmas, int size);
+void show_array(int *pmas, int size);
+void common_array(int *pmas1, int *pmas2, int *pmas3, int size1, int size2);
+void sel_sort(int mas[], int size);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+	
+	const int size1 = 10, size2 = 5, size3=size1+size2;
+	int imas1[size1], imas2[size2];
+	int com_arr[size3];
+
+	int *pimas1, *pimas2;
+	int *pcom_arr;
+
+	pimas1 = &imas1[0];
+	pimas2 = &imas2[0];
+	pcom_arr = &com_arr[0];
+
+
+	cout << "Array #1: \n\n";
+
+	generate_array(pimas1, size1);
+	show_array(pimas1, size1);
+
+	cout << "Array #2: \n\n";
+
+	generate_array(pimas2, size2);
+	show_array(pimas2, size2);
+	
+	cout << "Common array #3: \n\n";
+
+	common_array(pimas1, pimas2, pcom_arr, size1, size2);
+	show_array(pcom_arr, size3);
+
+	cout << "Array #3 after sorting: \n\n";
+
+	sel_sort(com_arr, size3);
+	show_array(com_arr, size3);
+	return 0;
+}
+
+void generate_array(int *pmas, int size)
+{
+	for (int i = 0; i < size; i++, pmas++)
+	{
+		*pmas = rand() % 30;
+	}
+}
+
+void show_array(int *pmas, int size)
+{
+	for (int i = 0; i < size; i++, pmas++)
+	{
+		cout << *pmas << " ";
+	}
+	cout << "\n\n";
+}
+
+void common_array(int *pmas1, int *pmas2, int *pmas3, int size1, int size2)
+{
+	for (int i = 0; i < size1; i++, pmas1++, pmas3++)
+	{
+		*pmas3 = *pmas1;
+	}
+
+	for (int i = 0; i < size2; i++, pmas2++, pmas3++)
+	{
+		*pmas3 = *pmas2;
+	}
+}
+
+void sel_sort(int mas[], int size)
+{
+	int min, min_index;
+
+	for (int i = 0; i < size; i++)
+	{
+		min = mas[i];
+		min_index = i;
+		for (int j = i+1; j < size; j++)
+		{
+			if (mas[j] < min)
+			{
+				min = mas[j];
+				min_index = j;
+			}
+		}
+
+		mas[min_index] = mas[i];
+		mas[i] = min;
+	}
+	
+}
+
+
+
