@@ -1,0 +1,141 @@
+// 12.3.1.cpp : Defines the entry point for the console application.
+//Даны два массива : А[n] и B[m]. Необходимо создать третий массив, в котором нужно собрать: 
+//Элементы обоих массивов;
+//Общие элементы двух массивов;
+//Элементы массива A, которые не включаются в B;
+//Элементы массива B, которые не включаются в A;
+//Элементы массивов A и B, коотрые не являются общими дял них(то есть объединение результатов двух предыдущих вариантов).
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <time.h>
+
+using namespace std;
+
+template <typename G> void generate_array(G *pmas, int size);
+template <typename S> void show_array(S *pmas, int size);
+template <typename C> void common_array(C *pmas1, C *pmas2, C *pmas3, int size1, int size2);
+template <typename A> void array_a_not_b(A *pmas1, A *pmas2, A* pmas_a, int size1, int size2);
+template <typename B> void array_b_not_a(B *pmas1, B *pmas2, B*pmas_b, int size1, int size2);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	srand(time(NULL));
+	const int size1 = 10, size2 = 5, size3 = size1 + size2;
+
+	int imas1[size1], imas2[size2], imas3[size3];
+	int imas_a[size1], imas_b[size2], imas_c[size1], imas_e[size3];
+
+	int *pmas1, *pmas2, *pmas3, *pmas_a, *pmas_b, *pmas_c, *pmas_e;
+
+	pmas1 = &imas1[0];
+	pmas2 = &imas2[0];
+	pmas3 = &imas3[0];
+	pmas_a = &imas_a[0];
+	pmas_b = &imas_b[0];
+	pmas_c = &imas_c[0];
+	pmas_e = &imas_e[0];
+
+	cout << "Array #1: \n\n";
+
+	generate_array(pmas1, size1);
+	show_array(pmas1, size1);
+
+	cout << "Array #2: \n\n";
+
+	generate_array(pmas2, size2);
+	show_array(pmas2, size2);
+
+	cout << "Array #3 (common array) : \n\n";
+
+	common_array(pmas1, pmas2, pmas3, size1, size2);
+	show_array(pmas3, size3);
+		
+
+	cout << "Array #4 (elements of array #1, not included int array #2): \n\n";
+	array_a_not_b(pmas1, pmas2, pmas_a, size1, size2);
+	show_array(pmas_a, size1);
+
+	cout << "Array #5 (elements of array #2, not included int array #1): \n\n";
+	array_b_not_a(pmas1, pmas2, pmas_b, size1, size2);
+	show_array(pmas_b, size2);
+
+	cout << "Array #6 (elements not included in array #1 and array #2): \n\n";
+
+	common_array(pmas_a, pmas_b, pmas_e, size1, size2);
+	show_array(pmas_e, size3);
+	return 0;
+}
+
+template <typename G> void generate_array(G *pmas, int size)
+{
+	for (int i = 0; i < size; i++, pmas++)
+	{
+		*pmas = rand() % 29 + 1;
+	}
+}
+
+template <typename S> void show_array(S *pmas, int size)
+{
+	for (int i = 0; i < size; i++, pmas++)
+	{
+		cout << *pmas << " ";
+	}
+	cout << "\n\n";
+}
+
+template <typename C> void common_array(C *pmas1, C *pmas2, C *pmas3, int size1, int size2)
+{
+	for (int i = 0; i < size1; i++, pmas1++, pmas3++)
+	{
+		*pmas3 = *pmas1;
+	}
+
+	for (int i = 0; i < size2; i++, pmas2++, pmas3++)
+	{
+		*pmas3 = *pmas2;
+	}
+}
+
+template <typename A> void array_a_not_b(A *pmas1, A *pmas2, A* pmas_a, int size1, int size2)
+{
+	for (int i = 0; i < size1; i++, pmas1++, pmas_a++)
+	{
+		
+		for (int j = 0; j < size2; j++, pmas2++)
+		{
+			if (*pmas1 != *pmas2)
+			{
+				*pmas_a = *pmas1;
+			}
+			else
+			{
+				*pmas_a = 0;
+			}
+		}
+
+		pmas2 -= size2;
+
+	}
+}
+
+template <typename B> void array_b_not_a(B *pmas1, B *pmas2, B*pmas_b, int size1, int size2)
+{
+	for (int i = 0; i < size2; i++, pmas2++, pmas_b++)
+	{
+		for (int j = 0; j < size1; j++, pmas1++)
+		{
+			if (*pmas2 != *pmas1)
+			{
+				*pmas_b = *pmas2;
+			}
+			else
+			{
+				*pmas_b = 0;
+			}
+		}
+
+		pmas1 -= size1;
+	}
+}
