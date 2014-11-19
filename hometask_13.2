@@ -1,0 +1,74 @@
+// 13.2.cpp : Defines the entry point for the console application.
+//Написать примитивный калькулятор, пользуясь только указателями.
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+double calculator(double *pa, double *pb, char *pmode);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	double a, b;
+	char mode;
+
+	double *pa, *pb;
+	char *pmode, *pmode_1;
+
+	pa = &a;
+	pb = &b;
+	pmode = &mode;
+
+	*pa = 7;
+	*pb = 8;
+
+	cout << "Welcome: \n\n";
+
+	for (;;)
+	{
+		cout << "Enter '0' to exit.\n\n";
+		cin >> *pa;
+		if (*pa == 0)
+		{
+			break;
+		}
+
+		cin >> *pmode;
+
+
+		cin >> *pb;
+
+		if (*pb == 0)
+		{
+			break;
+		}
+		cout << "\b\b= " << calculator(pa, pb, pmode);
+		cout << "\n\n";
+	}
+
+	cout << "\n\nThank You. Good Bye.\n\n";
+
+	return 0;
+}
+
+double calculator(double *pa, double *pb, char *pmode)
+{
+	if (*pmode == '+')
+	{
+		return *pa + *pb;
+	}
+	else if (*pmode == '-')
+	{
+		return *pa - *pb;
+	}
+	else if (*pmode == '*')
+	{
+		return *pa * *pb;
+	}
+	else if (*pmode == '/')
+	{
+		return *pa / *pb;
+	}
+}
+
