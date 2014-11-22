@@ -1,0 +1,29 @@
+// 13.4.cpp : Defines the entry point for the console application.
+//Найти заданную степень числа, пользуясь только указателями.
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int *number = new int;
+	int *power = new int;
+	int *result = new int;
+
+	cout << "Enter the number: ";
+	cin >> *number;
+	cout << "\n\nEnter the power: ";
+	cin >> *power;
+	cout << "\n\n";
+
+	*result = pow(*number, *power);
+
+	cout << *number << " in " << *power << " power is " << *result << ".\n\n";
+
+	return 0;
+}
+
