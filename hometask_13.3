@@ -1,0 +1,41 @@
+// 13.3.cpp : Defines the entry point for the console application.
+//Найти факториал числа, пользуясь только указателями.
+
+#include "stdafx.h"
+#include <iostream>
+
+using namespace std;
+
+void factorial(int *pnumber, int *fact);
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int *number = new(int);
+	int *fact = new int (1);
+
+	cout << "Enter the number: ";
+	cin >> *number;
+	cout << "\n\n";
+
+	int *temp = new int(*number);
+
+	factorial(temp, fact);
+	cout << "Factorial of " << *number << " = " << *fact << ".\n\n";
+	return 0;
+}
+
+void factorial(int *pnumber, int *fact)
+{
+	if (*pnumber == 1 ||*pnumber == 0)
+	{
+		*fact = *fact * *pnumber;
+	}
+
+	else
+	{
+		*fact = *fact * *pnumber;
+		(*pnumber)--;
+
+		factorial(pnumber, fact);
+	}
+}
