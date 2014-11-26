@@ -1,0 +1,62 @@
+// 14.2.cpp : Defines the entry point for the console application.
+//Показать на экран с m по n символов строки, введенной пользователем и записать данный отрезок в другой массив. (m и n также вводятся пользователем)
+
+#include "stdafx.h"
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	const int size = 128;
+
+	char *string_1 = new char[size];						//Initial string
+	char *string_2 = new char[size];						//Final array with cut symbols
+
+	int range_down, range_up;
+
+	range_down = -1;
+	range_up = -1;
+
+
+	cout << "Enter the string: ";
+
+	cin.getline(string_1, size);							//Getting the string_1
+
+	cout << "\n\n";
+	
+	for (; range_down < 0 || range_down>size;)				//Checking the useabitltiy of the down limit
+	{
+		cout << "Enter the down limit of the range: ";
+		cin >> range_down;
+		cout << "\n\n";
+	}
+
+	for (; range_up <= range_down || range_up > size;)		//Check the useability of the up limit
+	{
+		cout << "enter the up limit of the range: ";
+		cin >> range_up;
+		cout << "\n\n";
+	}
+
+	for (int i = range_down, j = 0; i <= range_up+1; i++, j++)		//initializing final array
+	{
+		*(string_2 + j) = *(string_1 + (i-1));
+	}
+
+	for (int i = 0; i < (range_up - range_down); i++)				//Show the final array
+	{
+		cout << *(string_2 + i);
+	}
+
+
+	cout << "\n\nThank You.\n\n";
+
+	delete[]string_1;											//Delete both array
+	delete[]string_2;
+
+
+	return 0;
+}
+
