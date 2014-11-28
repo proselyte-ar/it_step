@@ -1,0 +1,56 @@
+// 14.3.cpp : Defines the entry point for the console application.
+//Удалить с m по n символов, перезаписать строку и показать ее на экран.
+
+#include "stdafx.h"
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	const int size = 128;
+
+	char *string_1 = new char[size];
+	int range_down, range_up, counter;
+
+	range_down = -1;
+	range_up = -1;
+	counter = 0;
+
+	cout << "Enter the string: ";
+	cin.getline(string_1, size);
+
+	cout << "\n\n";
+
+	for (; range_down<0 || range_down>size;)
+	{
+		cout << "Enter the down limit of the range: ";
+		cin >> range_down;
+		cout << "\n\n";
+	}
+
+	for (; range_up<range_down || range_up>strlen(string_1);)
+	{
+		cout << "Enter the up limit of the range: ";
+		cin >> range_up;
+		cout << "\n\n";
+	}
+
+	for (int i = range_down; i <= range_up; i++)
+	{
+		*(string_1 + i) = *(string_1+i+(range_up-range_down));
+	}
+
+	for (int i = range_up + 1; i < strlen(string_1); i++)
+	{
+		*(string_1 + i) = '\0';
+	}
+
+
+	puts(string_1);
+	cout << "\n\n";
+
+	return 0;
+}
+
