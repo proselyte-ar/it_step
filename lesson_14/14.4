@@ -1,0 +1,40 @@
+// 14.4.cpp : Defines the entry point for the console application.
+//Пользователь вводит отдельно строку и символ, необходимо показать на экран номера по порядку всех совпадений (нумерация с единицы).
+
+#include "stdafx.h"
+#include <iostream>
+#include <string.h>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	const int size = 128;
+	int temp;
+
+	char *string_1 = new char[size];
+	char *symbol = new char;
+
+	cout << "Enter the string: ";
+	cin.getline(string_1, size);
+
+	cout << "Enter the symbol: ";
+	cin >> symbol;
+	cout << "\n\n";
+
+	temp = strlen(string_1);
+
+	for (int i = 0; i < temp; i++)
+	{
+		if (*(string_1 + i) == *symbol)
+		{
+			cout << "Mathing. Element #" << i + 1 << ".\n\n";
+		}
+	}
+
+	cout << "\n\n";
+
+
+	return 0;
+}
+
