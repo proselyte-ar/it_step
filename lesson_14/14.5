@@ -1,0 +1,58 @@
+// 14.5.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	const int size = 128;
+
+	char *string_1 = new char[size];
+	char *symbol = new char;
+
+	int *match_index= new int[size];
+	int max_index, temp;
+
+	cout << "Enter the string: ";
+	cin.getline(string_1, strlen(string_1));
+	cout << "\n\nEnter the symbol: ";
+	cin >> symbol;
+	cout << "\n\n";
+
+	temp = strlen(string_1);
+
+	for (int i = 0; i < temp; i++)
+	{
+		if (*(string_1 + i) == *symbol)
+		{
+			*(match_index + i) = i;
+		}
+	}
+
+	max_index = 0;
+
+	for (int i = 0; i < temp; i++)
+	{
+		if (*(match_index + i)>max_index)
+		{
+			max_index = *(match_index + i);
+		}
+	}
+
+	for (int i = 0; i < temp; i++)
+	{
+		if (*(string_1 + i) == *symbol && i == max_index)
+		{
+			cout << "Mathc. Element #" << i+1 << ".\n\n";
+		}
+	}
+	
+
+
+	return 0;
+}
+
